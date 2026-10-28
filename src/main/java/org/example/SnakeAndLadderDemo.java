@@ -3,6 +3,9 @@ package org.example;
 import org.example.domain.*;
 import org.example.domain.dice.Dice;
 import org.example.domain.dice.StandardDice;
+import org.example.domain.jump.Ladder;
+import org.example.domain.jump.Snake;
+import org.example.service.Game;
 
 import java.util.List;
 

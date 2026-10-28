@@ -1,5 +1,7 @@
 package org.example.domain;
 
+import org.example.domain.jump.Jump;
+
 import java.util.Objects;
 
 public class Board

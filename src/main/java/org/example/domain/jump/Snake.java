@@ -1,4 +1,6 @@
-package org.example.domain;
+package org.example.domain.jump;
+
+import org.example.domain.Position;
 
 public final class Snake extends Jump
 {

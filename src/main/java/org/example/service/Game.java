@@ -1,5 +1,8 @@
-package org.example.domain;
+package org.example.service;
 
+import org.example.domain.Board;
+import org.example.domain.Player;
+import org.example.domain.Position;
 import org.example.domain.dice.Dice;
 
 import java.util.ArrayDeque;

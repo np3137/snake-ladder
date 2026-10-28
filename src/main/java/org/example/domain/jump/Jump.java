@@ -1,4 +1,6 @@
-package org.example.domain;
+package org.example.domain.jump;
+
+import org.example.domain.Position;
 
 import java.util.Objects;
 
