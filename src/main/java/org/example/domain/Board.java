@@ -9,13 +9,12 @@ public class Board
 
    public Board(int size)
    {
-      if(size <= 1)
+      if(size<=1)
       {
-         throw new IllegalArgumentException("Board size must be greater than 1.");
+         throw new IllegalStateException("Board size must be greater than 1.");
       }
       this.size = size;
       this.cells = new Cell[size+1];
-
       createCells();
    }
 
@@ -27,46 +26,49 @@ public class Board
       }
    }
 
+   public void addJump(Jump jump)
+   {
+      Objects.requireNonNull(jump);
+      validatePosition(jump.getStart());
+      validatePosition(jump.getEnd());
+
+      Cell startCell = getCell(jump.getStart());
+      startCell.addJump(jump);
+   }
+
+   public boolean isOnBoard(Position position)
+   {
+      int cellNumber = position.getValue();
+      return cellNumber >= 1 && cellNumber <= size;
+   }
+
+   public boolean isWinningPosition(Position position)
+   {
+      return position.getValue() == size;
+   }
+
+   public Position resolveLanding(Position landedPosition)
+   {
+      Cell landedCell = getCell(landedPosition);
+      Jump jump = landedCell.getJump();
+      if (jump == null)
+      {
+         return landedPosition;
+      }
+      return jump.getEnd();
+   }
+
    private Cell getCell(Position position)
    {
       validatePosition(position);
       return cells[position.getValue()];
    }
 
-   public void addJump(Jump jump)
-   {
-        Objects.requireNonNull(jump);
-
-        validatePosition(jump.getStart());
-        validatePosition(jump.getEnd());
-
-        getCell(jump.getStart()).addJump(jump);
-   }
-
-   public boolean isWinningPosition(Position position)
-   {
-       return position.getValue()==size;
-   }
-
-   public Position resolveLanding(Position landPosition)
-   {
-       Cell landedCell = getCell(landPosition);
-       Jump jump = landedCell.getJump();
-       return jump==null?landPosition:jump.getEnd();
-   }
-
-   public boolean isOnBoard(Position position)
-   {
-      int value = position.getValue();
-      return value>=1 && value<=size;
-   }
-
    private void validatePosition(Position position)
    {
-      if(!isOnBoard(position))
+      if (!isOnBoard(position))
       {
-         throw new IllegalStateException("Position must lie within the board.");
+         throw new IllegalArgumentException("Position is outside the board");
       }
    }
-
 }
